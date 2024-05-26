@@ -1,0 +1,205 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <title>Home</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+        header{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background-color: rgb(225, 225, 225);
+        }
+
+        header p{
+            font-weight: bolder;
+            color: rgb(0, 135, 175);
+            margin: 10px;
+        }
+
+        header button{
+            margin: 10px;
+            border: 0;
+            border-radius: 10px;
+            background-color: rgb(185, 0, 0);
+            color: rgb(255, 255, 255);
+            width: 125px;
+            height: 35px;
+        }
+        header button:hover{
+            background-color: rgb(228, 0, 0);
+        }
+
+        header button:active{
+            background-color: rgb(139, 0, 0);
+        }
+
+        main{
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        section{
+            background-color: rgb(255, 220, 180);
+            margin: 10px;
+            padding: 5px;
+            width: 200px;
+            height: 200px;
+            border: 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-direction: column;
+
+            cursor: pointer;
+        }
+
+        section img{
+            padding: 5px;
+            border-width: 2.5px;
+            border-color: rgb(0, 0, 0);
+            border-style: solid;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            background-color: rgb(255, 255, 255);
+        }
+
+        section p{
+            font-size: larger;
+            color: rgb(55, 90, 100);
+        }
+        .search-input {
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            font-size: 16px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            margin: 2%;
+        }
+        
+        
+        .search-icon {
+           
+            position: absolute;
+            top: 2px;
+           
+        }
+
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+          }
+          
+          .notification-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 3px 6px;
+            font-size: 12px;
+          }
+          
+          .notification-dropdown {
+            display: none;
+            position: absolute;
+            top: 25px;
+            right: 0;
+            min-width: 300px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            z-index: 1;
+          }
+          
+          .notification-item {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+          }
+          
+          .notification-item:last-child {
+            border-bottom: none;
+          }
+          
+    </style>
+</head>
+<body>
+
+    <header>
+        <p>Username : {{user.username}}</p>
+
+        <p>Name :{{user.first_name}}</p>
+        <a href="{% url 'logout' %}"><button>Logout</button></a> 
+
+
+        <div class="notification-icon" onclick="toggleNotifications()" style="margin-left: 5%;">
+           <h2>  <i class="fa fa-bell "></i></h2> 
+            <span class="notification-count">3</span>
+            <div class="notification-dropdown">
+              <!-- Your notification items here -->
+              <div class="notification-item">Notification 1</div>
+              <div class="notification-item">Notification 2</div>
+              <div class="notification-item">Notification 3</div>
+            </div>
+          </div>
+          
+
+    </header>
+    
+    <input type="search" class="search-input" placeholder="Search ..." >
+
+    <main>
+        <p  style="color: red;  margin-top: 10%; font-weight: bold; font-size: xx-large; text-align: center;" > {{error}}</p>
+        
+           
+     {% for persons in users %}
+     
+     <a href="chat_person/{{ persons.id }}"><section>
+        <img src="{% static 'chat/face.png' %}">
+        <p>{{persons.first_name}}  {{persons.last_name}}</p>
+    </section></a>
+     
+     {% endfor %}
+
+    </main>
+<script>
+
+    function toggleNotifications() {
+        var dropdown = document.querySelector('.notification-dropdown');
+        dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+      }
+      
+      // Close dropdown if clicked outside
+      document.addEventListener('click', function(event) {
+        var dropdown = document.querySelector('.notification-dropdown');
+        if (!event.target.closest('.notification-icon')) {
+          dropdown.style.display = 'none';
+        }
+      });
+      
+
+</script>
+</body>
+</html>
