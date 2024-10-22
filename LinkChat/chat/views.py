@@ -13,7 +13,14 @@ from .models import Message , UserChannel
 class Main( View):
     def get(self , request):
         
-        print(dir(request.user))
+        
+       
+        
+        # print(request.encoding)
+        # print(dir(request.user))
+        # print(dir(request.path) , 'popopopopopopop')
+        # print(dir(request))
+        
         username  = request.user.username
         
         
@@ -27,8 +34,7 @@ class Main( View):
     
 class Login(View):
     def get(self , request):
-        print('lllllllllll')
-        print(dir(request.user))
+       
         return render(request=request , template_name="chat/login.html")
     
     def post(self , request ):
@@ -38,22 +44,25 @@ class Login(View):
         password = request.POST.get('password')
         
         user = authenticate(request=request , username = username , password= password )
-        print(user)
+        print(user.password)
         
         if  user != None:
             login(request=request , user=user)
             return redirect('home')
         
-        context.update({'error' : 'Invalid credentials ! Try again   '})
+        context.update({'error' : 'Invalid credentials ! Try again'})
         return render(request=request , template_name="chat/login.html" , context=context )
         
             
 class Register(View):
     def get(self , request):
+      
+        # print(dir(request.POST))
+        # print(request)
         return render(request=request , template_name="chat/register.html")
     
     def post( self ,  request ):
-       
+      
         context = {}
         data  = request.POST.dict()
         # first_name = request.POST.get('first_name') we cna also use like this 
@@ -100,7 +109,7 @@ class Logout(View):
     
 class Home( View):
     def get(self , request):
-        
+    
         users = User.objects.exclude(id = request.user.id)
        
         if request.user.is_authenticated:

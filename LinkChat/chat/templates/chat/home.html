@@ -55,6 +55,7 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+            margin-top: -10%;
         }
 
         section{
@@ -168,10 +169,10 @@
 
     </header>
     
+    
     <input type="search" class="search-input" placeholder="Search ..." >
-
+    <p  style="color: red;  margin-top: 10%; font-weight: bold; font-size: xx-large; text-align: center;" > {{error}}</p>
     <main>
-        <p  style="color: red;  margin-top: 10%; font-weight: bold; font-size: xx-large; text-align: center;" > {{error}}</p>
         
            
      {% for persons in users %}

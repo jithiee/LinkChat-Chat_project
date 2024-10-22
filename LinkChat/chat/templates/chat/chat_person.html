@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Person</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body{
             padding: 0;
@@ -228,6 +229,14 @@
         .details .failed-send div{
             background-color: rgb(255, 0, 0);
         }
+        .delbtn{
+            display: flex;
+            justify-content: end;
+            color:white;
+            padding: 15px;
+            cursor: pointer;
+            gap: 20px;
+        }
     </style>
 </head>
 <body>
@@ -261,9 +270,14 @@
                         {% endif %}
                             
                         <p>{{message.time}}</p>
+                        
                     </div>
                     <div class="message">
                         <p style="overflow-wrap: anywhere;">{{message.message}}</p>
+                        <div class='delbtn'>
+                            <i class="fas fa-edit"></i>
+                           <i class="fas fa-trash-alt"></i>
+                        </div>
                     </div>
                 </section>
                    
@@ -326,6 +340,10 @@
                     <div class="message">
                         <p style="overflow-wrap: anywhere;">${text_area.value}</p>
                     </div>
+                      <div class='delbtn'>
+                            <i class="fas fa-edit"></i>
+                           <i class="fas fa-trash-alt"></i>
+                        </div>
                 </section>` 
                 )
 
@@ -348,6 +366,10 @@
                     </div>
                     <div class="message">
                         <p style="overflow-wrap: anywhere;">${recevied_data.data}</p>
+                    </div>
+                    <div class='delbtn'>
+                        <i class="fas fa-edit"></i>
+                       <i class="fas fa-trash-alt"></i>
                     </div>
                 </section>
                 ` 
